@@ -46,6 +46,7 @@ chown -R nobody:nogroup .kube
 export TMPDIR=/nonexistent
 
 envs=`env`
+# shellcheck disable=SC2068
 for env in ${envs[@]}; do
     if [[ $env == GOTTY* ]];
     then

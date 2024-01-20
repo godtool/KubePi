@@ -122,6 +122,7 @@ import LayoutContent from "@/components/layout/LayoutContent"
 import KoCharts from "@/components/ko-charts"
 import {listNamespace} from "@/api/namespaces"
 import {listDeployments} from "@/api/deployments"
+import {listClonesets} from "@/api/clonesets"
 import {listStatefulSets} from "@/api/statefulsets"
 import {listDaemonSets} from "@/api/daemonsets"
 import {listServices} from "@/api/services"
@@ -253,6 +254,18 @@ export default {
           this.resources.push(deployments)
         })
       }
+        if (checkPermissions({scope: "namespace", apiGroup: "apps", resource: "clonesets", verb: "list"})) {
+          listClonesets(this.clusterName).then(res => {
+            const clonesets = {
+              name: "Clonesets",
+              count: res.items? res.items.length : 0,
+              data: [{
+                value: res.items? res.items.length : 0
+              }]
+            }
+            this.resources.push(clonesets)
+          })
+        }
       if (checkPermissions({scope: "namespace", apiGroup: "apps", resource: "statefulsets", verb: "list"})) {
         listStatefulSets(this.clusterName).then(res => {
           const statefulSets = {

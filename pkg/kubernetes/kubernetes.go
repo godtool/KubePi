@@ -10,7 +10,7 @@ import (
 	"strings"
 	"time"
 
-	v1Cluster "github.com/KubeOperator/kubepi/internal/model/v1/cluster"
+	v1Cluster "github.com/KubeOperator/kubepi/service/model/v1/cluster"
 	"github.com/KubeOperator/kubepi/pkg/certificate"
 	"github.com/KubeOperator/kubepi/pkg/collectons"
 	v1 "k8s.io/api/authorization/v1"

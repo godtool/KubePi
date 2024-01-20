@@ -37,6 +37,7 @@ export function listWorkLoads (
   let params = {}
   switch (type) {
     case "deployments":
+    case "clonesets":
     case "statefulsets":
     case "daemonsets":
       url = appsV1Url(cluster_name, type)
@@ -67,6 +68,7 @@ export function listWorkLoads (
 export function getWorkLoadByName (cluster_name, type, namespace, name) {
   switch (type) {
     case "deployments":
+    case "clonesets":
     case "statefulsets":
     case "daemonsets":
       return get(
@@ -86,6 +88,7 @@ export function getWorkLoadByName (cluster_name, type, namespace, name) {
 export function deleteWorkLoad (cluster_name, type, namespace, name) {
   switch (type) {
     case "deployments":
+    case "clonesets":
     case "statefulsets":
     case "daemonsets":
       return del(
@@ -105,6 +108,7 @@ export function deleteWorkLoad (cluster_name, type, namespace, name) {
 export function createWorkLoad (cluster_name, type, namespace, data) {
   switch (type) {
     case "deployments":
+    case "clonesets":
     case "statefulsets":
     case "daemonsets":
       return post(`${appsV1UrlWithNsUrl(cluster_name, type, namespace)}`, data)
@@ -124,6 +128,7 @@ export function createWorkLoad (cluster_name, type, namespace, data) {
 export function updateWorkLoad (cluster_name, type, namespace, name, data) {
   switch (type) {
     case "deployments":
+    case "clonesets":
     case "statefulsets":
     case "daemonsets":
       return put(

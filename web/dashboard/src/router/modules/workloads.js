@@ -121,6 +121,7 @@ const Workloads = {
         title: "Deployments",
       },
     },
+
     {
       path: "/deployments/detail/:namespace/:name",
       requirePermission: {
@@ -167,7 +168,66 @@ const Workloads = {
         activeMenu: "/deployments",
       },
     },
-
+    {
+      path: "/clonesets",
+      requirePermission: {
+        apiGroup: "apps",
+        resource: "clonesets",
+        verb: "list",
+        scope:"namespace"
+      },
+      component: () => import("@/business/workloads/clonesets"),
+      name: "Clonesets",
+      meta: {
+        title: "Clonesets",
+      },
+    },
+    {
+      path: "/clonesets/detail/:namespace/:name",
+      requirePermission: {
+        apiGroup: "apps",
+        resource: "deployments",
+        verb: "get",
+        scope:"namespace"
+      },
+      name: "ClonesetDetail",
+      hidden: true,
+      component: () => import("@/business/workloads/clonesets/detail"),
+      props: true,
+      meta: {
+        activeMenu: "/clonesets",
+      },
+    },
+    {
+      path: "clonesets/:operation",
+      requirePermission: {
+        apiGroup: "apps",
+        resource: "clonesets",
+        verb: "create",
+        scope:"namespace"
+      },
+      name: "ClonesetCreate",
+      hidden: true,
+      component: () => import("@/business/workloads/index"),
+      meta: {
+        activeMenu: "/clonesets",
+      },
+    },
+    {
+      path: "clonesets/:operation/:namespace/:name",
+      requirePermission: {
+        apiGroup: "apps",
+        resource: "clonesets",
+        verb: "update",
+        scope:"namespace"
+      },
+      name: "ClonesetEdit",
+      hidden: true,
+      component: () => import("@/business/workloads/index"),
+      meta: {
+        activeMenu: "/clonesets",
+      },
+    },
     {
       path: "/daemonsets",
       requirePermission: {
