@@ -3,8 +3,8 @@ package cluster
 import (
 	"time"
 
-	v1Cluster "github.com/KubeOperator/kubepi/service/model/v1/cluster"
-	V1ClusterRepo "github.com/KubeOperator/kubepi/service/model/v1/clusterrepo"
+	v1Cluster "github.com/godtool/kubeone/service/model/v1/cluster"
+	V1ClusterRepo "github.com/godtool/kubeone/service/model/v1/clusterrepo"
 )
 
 const (

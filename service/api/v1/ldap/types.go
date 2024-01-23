@@ -1,8 +1,8 @@
 package ldap
 
 import (
-	v1Ldap "github.com/KubeOperator/kubepi/service/model/v1/ldap"
-	"github.com/KubeOperator/kubepi/service/model/v1/user"
+	v1Ldap "github.com/godtool/kubeone/service/model/v1/ldap"
+	"github.com/godtool/kubeone/service/model/v1/user"
 )
 
 type Ldap struct {

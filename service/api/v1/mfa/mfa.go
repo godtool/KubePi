@@ -1,13 +1,13 @@
 package mfa
 
 import (
-	sessionAuth "github.com/KubeOperator/kubepi/service/api/v1/session"
-	v1 "github.com/KubeOperator/kubepi/service/model/v1"
-	v1User "github.com/KubeOperator/kubepi/service/model/v1/user"
-	"github.com/KubeOperator/kubepi/service/server"
-	"github.com/KubeOperator/kubepi/service/service/v1/common"
-	"github.com/KubeOperator/kubepi/service/service/v1/user"
-	mfaUtil "github.com/KubeOperator/kubepi/pkg/util/mfa"
+	mfaUtil "github.com/godtool/kubeone/pkg/util/mfa"
+	sessionAuth "github.com/godtool/kubeone/service/api/v1/session"
+	v1 "github.com/godtool/kubeone/service/model/v1"
+	v1User "github.com/godtool/kubeone/service/model/v1/user"
+	"github.com/godtool/kubeone/service/server"
+	"github.com/godtool/kubeone/service/service/v1/common"
+	"github.com/godtool/kubeone/service/service/v1/user"
 	"github.com/kataras/iris/v12"
 	"github.com/kataras/iris/v12/context"
 )

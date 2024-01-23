@@ -4,15 +4,15 @@ import (
 	"errors"
 	"time"
 
-	V1ClusterRepo "github.com/KubeOperator/kubepi/service/model/v1/clusterrepo"
-	V1ImageRepo "github.com/KubeOperator/kubepi/service/model/v1/imagerepo"
-	"github.com/KubeOperator/kubepi/service/service/v1/common"
-	costomStorm "github.com/KubeOperator/kubepi/pkg/storm"
-	repoClient "github.com/KubeOperator/kubepi/pkg/util/imagerepo"
-	"github.com/KubeOperator/kubepi/pkg/util/imagerepo/repos"
-	"github.com/KubeOperator/kubepi/pkg/util/lang"
 	"github.com/asdine/storm/v3"
 	"github.com/asdine/storm/v3/q"
+	costomStorm "github.com/godtool/kubeone/pkg/storm"
+	repoClient "github.com/godtool/kubeone/pkg/util/imagerepo"
+	"github.com/godtool/kubeone/pkg/util/imagerepo/repos"
+	"github.com/godtool/kubeone/pkg/util/lang"
+	V1ClusterRepo "github.com/godtool/kubeone/service/model/v1/clusterrepo"
+	V1ImageRepo "github.com/godtool/kubeone/service/model/v1/imagerepo"
+	"github.com/godtool/kubeone/service/service/v1/common"
 	"github.com/google/uuid"
 )
 

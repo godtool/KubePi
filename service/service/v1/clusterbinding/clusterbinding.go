@@ -2,9 +2,9 @@ package clusterbinding
 
 import (
 	"errors"
-	v1Cluster "github.com/KubeOperator/kubepi/service/model/v1/cluster"
-	"github.com/KubeOperator/kubepi/service/service/v1/common"
 	"github.com/asdine/storm/v3/q"
+	v1Cluster "github.com/godtool/kubeone/service/model/v1/cluster"
+	"github.com/godtool/kubeone/service/service/v1/common"
 	"github.com/google/uuid"
 	"time"
 )

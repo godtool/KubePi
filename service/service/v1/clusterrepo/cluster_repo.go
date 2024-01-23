@@ -3,13 +3,13 @@ package clusterrepo
 import (
 	"time"
 
-	V1ClusterRepo "github.com/KubeOperator/kubepi/service/model/v1/clusterrepo"
-	V1ImageRepo "github.com/KubeOperator/kubepi/service/model/v1/imagerepo"
-	"github.com/KubeOperator/kubepi/service/service/v1/cluster"
-	"github.com/KubeOperator/kubepi/service/service/v1/common"
-	"github.com/KubeOperator/kubepi/service/service/v1/imagerepo"
 	"github.com/asdine/storm/v3"
 	"github.com/asdine/storm/v3/q"
+	V1ClusterRepo "github.com/godtool/kubeone/service/model/v1/clusterrepo"
+	V1ImageRepo "github.com/godtool/kubeone/service/model/v1/imagerepo"
+	"github.com/godtool/kubeone/service/service/v1/cluster"
+	"github.com/godtool/kubeone/service/service/v1/common"
+	"github.com/godtool/kubeone/service/service/v1/imagerepo"
 	"github.com/google/uuid"
 )
 

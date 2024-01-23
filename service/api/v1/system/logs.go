@@ -3,11 +3,11 @@ package system
 import (
 	"errors"
 
-	"github.com/KubeOperator/kubepi/service/api/v1/commons"
-	"github.com/KubeOperator/kubepi/service/service/v1/common"
-	"github.com/KubeOperator/kubepi/service/service/v1/system"
-	pkgV1 "github.com/KubeOperator/kubepi/pkg/api/v1"
 	"github.com/asdine/storm/v3"
+	pkgV1 "github.com/godtool/kubeone/pkg/api/v1"
+	"github.com/godtool/kubeone/service/api/v1/commons"
+	"github.com/godtool/kubeone/service/service/v1/common"
+	"github.com/godtool/kubeone/service/service/v1/system"
 	"github.com/kataras/iris/v12"
 	"github.com/kataras/iris/v12/context"
 )

@@ -6,8 +6,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/KubeOperator/kubepi/service/service/v1/common"
-	"github.com/KubeOperator/kubepi/pkg/kubernetes"
+	"github.com/godtool/kubeone/pkg/kubernetes"
+	"github.com/godtool/kubeone/service/service/v1/common"
 	"github.com/kataras/iris/v12"
 	"github.com/kataras/iris/v12/context"
 	rbacV1 "k8s.io/api/rbac/v1"

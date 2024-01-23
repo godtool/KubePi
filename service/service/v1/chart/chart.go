@@ -2,14 +2,14 @@ package chart
 
 import (
 	"errors"
-	v1Chart "github.com/KubeOperator/kubepi/service/model/v1/chart"
-	v1ClusterApp "github.com/KubeOperator/kubepi/service/model/v1/clusterapp"
-	"github.com/KubeOperator/kubepi/service/service/v1/cluster"
-	"github.com/KubeOperator/kubepi/service/service/v1/clusterapp"
-	"github.com/KubeOperator/kubepi/service/service/v1/common"
-	"github.com/KubeOperator/kubepi/pkg/kubernetes"
-	"github.com/KubeOperator/kubepi/pkg/util/helm"
 	"github.com/asdine/storm/v3"
+	"github.com/godtool/kubeone/pkg/kubernetes"
+	"github.com/godtool/kubeone/pkg/util/helm"
+	v1Chart "github.com/godtool/kubeone/service/model/v1/chart"
+	v1ClusterApp "github.com/godtool/kubeone/service/model/v1/clusterapp"
+	"github.com/godtool/kubeone/service/service/v1/cluster"
+	"github.com/godtool/kubeone/service/service/v1/clusterapp"
+	"github.com/godtool/kubeone/service/service/v1/common"
 	"helm.sh/helm/v3/cmd/helm/search"
 	"helm.sh/helm/v3/pkg/release"
 	"helm.sh/helm/v3/pkg/repo"
@@ -31,7 +31,7 @@ type Service interface {
 	GetAppDetail(cluster string, name string) (*release.Release, error)
 	GetChartsUpdate(cluster, chart, name string) (*v1Chart.UpdateResult, error)
 	UpgradeChart(cluster, namespace, repoName, name, chartName, chartVersion string, values map[string]interface{}) error
-	SyncRepo(cluster,name string) error
+	SyncRepo(cluster, name string) error
 }
 
 func NewService() Service {
@@ -298,7 +298,7 @@ func (c *service) GetAppDetail(cluster string, name string) (*release.Release, e
 	return helmClient.GetDetail(name)
 }
 
-func (c *service) SyncRepo(cluster,name string) error {
+func (c *service) SyncRepo(cluster, name string) error {
 	helmClient, err := NewHelmClient(cluster, "")
 	if err != nil {
 		return err

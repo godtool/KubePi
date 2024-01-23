@@ -2,7 +2,7 @@ package ldap
 
 import (
 	"encoding/json"
-	v1 "github.com/KubeOperator/kubepi/service/model/v1"
+	v1 "github.com/godtool/kubeone/service/model/v1"
 )
 
 type Ldap struct {

@@ -1,6 +1,6 @@
 package user
 
-import v1 "github.com/KubeOperator/kubepi/service/model/v1"
+import v1 "github.com/godtool/kubeone/service/model/v1"
 
 type User struct {
 	v1.BaseModel `storm:"inline"`

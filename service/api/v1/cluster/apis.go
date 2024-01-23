@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/KubeOperator/kubepi/service/service/v1/common"
-	"github.com/KubeOperator/kubepi/pkg/kubernetes"
+	"github.com/godtool/kubeone/pkg/kubernetes"
+	"github.com/godtool/kubeone/service/service/v1/common"
 	"github.com/kataras/iris/v12"
 	"github.com/kataras/iris/v12/context"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"

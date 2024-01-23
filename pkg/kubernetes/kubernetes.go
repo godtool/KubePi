@@ -10,9 +10,9 @@ import (
 	"strings"
 	"time"
 
-	v1Cluster "github.com/KubeOperator/kubepi/service/model/v1/cluster"
-	"github.com/KubeOperator/kubepi/pkg/certificate"
-	"github.com/KubeOperator/kubepi/pkg/collectons"
+	"github.com/godtool/kubeone/pkg/certificate"
+	"github.com/godtool/kubeone/pkg/collectons"
+	v1Cluster "github.com/godtool/kubeone/service/model/v1/cluster"
 	v1 "k8s.io/api/authorization/v1"
 	certv1 "k8s.io/api/certificates/v1"
 	certv1beta1 "k8s.io/api/certificates/v1beta1"

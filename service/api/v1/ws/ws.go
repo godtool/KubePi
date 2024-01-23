@@ -1,8 +1,8 @@
 package ws
 
 import (
-	"github.com/KubeOperator/kubepi/pkg/logging"
-	"github.com/KubeOperator/kubepi/pkg/terminal"
+	"github.com/godtool/kubeone/pkg/logging"
+	"github.com/godtool/kubeone/pkg/terminal"
 	"github.com/kataras/iris/v12"
 	"github.com/kataras/iris/v12/context"
 )

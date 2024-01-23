@@ -4,11 +4,11 @@ import (
 	"errors"
 	"time"
 
-	v1Role "github.com/KubeOperator/kubepi/service/model/v1/role"
-	"github.com/KubeOperator/kubepi/service/service/v1/common"
-	costomStorm "github.com/KubeOperator/kubepi/pkg/storm"
-	"github.com/KubeOperator/kubepi/pkg/util/lang"
 	"github.com/asdine/storm/v3/q"
+	costomStorm "github.com/godtool/kubeone/pkg/storm"
+	"github.com/godtool/kubeone/pkg/util/lang"
+	v1Role "github.com/godtool/kubeone/service/model/v1/role"
+	"github.com/godtool/kubeone/service/service/v1/common"
 	"github.com/google/uuid"
 )
 

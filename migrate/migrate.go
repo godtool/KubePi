@@ -2,9 +2,9 @@ package migrate
 
 import (
 	"errors"
-	"github.com/KubeOperator/kubepi/migrate/migrations"
-	v1 "github.com/KubeOperator/kubepi/migrate/v1"
 	"github.com/asdine/storm/v3"
+	"github.com/godtool/kubeone/migrate/migrations"
+	v1 "github.com/godtool/kubeone/migrate/v1"
 	"github.com/sirupsen/logrus"
 	"os"
 	"sort"
@@ -22,7 +22,7 @@ func RunMigrate(db *storm.DB, logger *logrus.Logger) {
 			os.Exit(1)
 		}
 	}
-	logger.Infof("current db version: %d",currentDbVersion)
+	logger.Infof("current db version: %d", currentDbVersion)
 
 	var prepareExecuteMigrationVersions []int
 

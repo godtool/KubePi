@@ -3,7 +3,7 @@ package helm
 import (
 	"context"
 	"fmt"
-	"github.com/KubeOperator/kubepi/service/server"
+	"github.com/godtool/kubeone/service/server"
 	"github.com/gofrs/flock"
 	"github.com/pkg/errors"
 	"gopkg.in/yaml.v3"

@@ -2,11 +2,11 @@ package file
 
 import (
 	"fmt"
-	"github.com/KubeOperator/kubepi/service/model/v1/file"
-	"github.com/KubeOperator/kubepi/service/service/v1/cluster"
-	"github.com/KubeOperator/kubepi/service/service/v1/common"
-	kubeClient "github.com/KubeOperator/kubepi/pkg/kubernetes"
-	"github.com/KubeOperator/kubepi/pkg/util/podtool"
+	kubeClient "github.com/godtool/kubeone/pkg/kubernetes"
+	"github.com/godtool/kubeone/pkg/util/podtool"
+	"github.com/godtool/kubeone/service/model/v1/file"
+	"github.com/godtool/kubeone/service/service/v1/cluster"
+	"github.com/godtool/kubeone/service/service/v1/common"
 	"github.com/sirupsen/logrus"
 	"io"
 	"k8s.io/client-go/kubernetes"

@@ -1,6 +1,6 @@
 package imagerepo
 
-import "github.com/KubeOperator/kubepi/pkg/util/imagerepo/repos"
+import "github.com/godtool/kubeone/pkg/util/imagerepo/repos"
 
 type RepoClient interface {
 	ListRepos(request repos.ProjectRequest) ([]string, error)

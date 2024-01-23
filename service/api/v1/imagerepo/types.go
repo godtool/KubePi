@@ -1,6 +1,6 @@
 package imagerepo
 
-import V1ImageRepo "github.com/KubeOperator/kubepi/service/model/v1/imagerepo"
+import V1ImageRepo "github.com/godtool/kubeone/service/model/v1/imagerepo"
 
 type RepoConfig struct {
 	V1ImageRepo.ImageRepo

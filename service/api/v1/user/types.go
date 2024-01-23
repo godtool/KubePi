@@ -1,6 +1,6 @@
 package user
 
-import v1User "github.com/KubeOperator/kubepi/service/model/v1/user"
+import v1User "github.com/godtool/kubeone/service/model/v1/user"
 
 type User struct {
 	v1User.User

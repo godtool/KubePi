@@ -8,34 +8,34 @@ import (
 	"io/ioutil"
 	"strings"
 
-	"github.com/KubeOperator/kubepi/service/api/v1/mfa"
-	"github.com/KubeOperator/kubepi/service/server"
+	"github.com/godtool/kubeone/service/api/v1/mfa"
+	"github.com/godtool/kubeone/service/server"
 
-	"github.com/KubeOperator/kubepi/service/api/v1/file"
+	"github.com/godtool/kubeone/service/api/v1/file"
 	"github.com/kataras/iris/v12/middleware/jwt"
 
-	"github.com/KubeOperator/kubepi/service/api/v1/chart"
-	"github.com/KubeOperator/kubepi/service/api/v1/cluster"
-	"github.com/KubeOperator/kubepi/service/api/v1/imagerepo"
-	"github.com/KubeOperator/kubepi/service/api/v1/ldap"
-	"github.com/KubeOperator/kubepi/service/api/v1/proxy"
-	"github.com/KubeOperator/kubepi/service/api/v1/role"
-	"github.com/KubeOperator/kubepi/service/api/v1/session"
-	"github.com/KubeOperator/kubepi/service/api/v1/system"
-	"github.com/KubeOperator/kubepi/service/api/v1/user"
-	"github.com/KubeOperator/kubepi/service/api/v1/webkubectl"
-	"github.com/KubeOperator/kubepi/service/api/v1/ws"
-	v1 "github.com/KubeOperator/kubepi/service/model/v1"
-	v1Role "github.com/KubeOperator/kubepi/service/model/v1/role"
-	v1System "github.com/KubeOperator/kubepi/service/model/v1/system"
-	"github.com/KubeOperator/kubepi/service/service/v1/common"
-	v1RoleService "github.com/KubeOperator/kubepi/service/service/v1/role"
-	v1RoleBindingService "github.com/KubeOperator/kubepi/service/service/v1/rolebinding"
-	v1SystemService "github.com/KubeOperator/kubepi/service/service/v1/system"
-	pkgV1 "github.com/KubeOperator/kubepi/pkg/api/v1"
-	"github.com/KubeOperator/kubepi/pkg/collectons"
-	"github.com/KubeOperator/kubepi/pkg/i18n"
 	"github.com/asdine/storm/v3"
+	pkgV1 "github.com/godtool/kubeone/pkg/api/v1"
+	"github.com/godtool/kubeone/pkg/collectons"
+	"github.com/godtool/kubeone/pkg/i18n"
+	"github.com/godtool/kubeone/service/api/v1/chart"
+	"github.com/godtool/kubeone/service/api/v1/cluster"
+	"github.com/godtool/kubeone/service/api/v1/imagerepo"
+	"github.com/godtool/kubeone/service/api/v1/ldap"
+	"github.com/godtool/kubeone/service/api/v1/proxy"
+	"github.com/godtool/kubeone/service/api/v1/role"
+	"github.com/godtool/kubeone/service/api/v1/session"
+	"github.com/godtool/kubeone/service/api/v1/system"
+	"github.com/godtool/kubeone/service/api/v1/user"
+	"github.com/godtool/kubeone/service/api/v1/webkubectl"
+	"github.com/godtool/kubeone/service/api/v1/ws"
+	v1 "github.com/godtool/kubeone/service/model/v1"
+	v1Role "github.com/godtool/kubeone/service/model/v1/role"
+	v1System "github.com/godtool/kubeone/service/model/v1/system"
+	"github.com/godtool/kubeone/service/service/v1/common"
+	v1RoleService "github.com/godtool/kubeone/service/service/v1/role"
+	v1RoleBindingService "github.com/godtool/kubeone/service/service/v1/rolebinding"
+	v1SystemService "github.com/godtool/kubeone/service/service/v1/system"
 	"github.com/kataras/iris/v12"
 	"github.com/kataras/iris/v12/context"
 	"github.com/kataras/iris/v12/core/router"
@@ -424,7 +424,7 @@ func AddV1Route(app iris.Party) {
 	mfa.Install(v1Party)
 	v1Party.Use(langHandler())
 	v1Party.Use(pageHandler())
-	
+
 	authParty := v1Party.Party("")
 	authParty.Use(WarpedJwtHandler())
 	authParty.Use(authHandler())

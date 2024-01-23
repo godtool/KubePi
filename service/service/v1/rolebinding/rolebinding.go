@@ -2,11 +2,12 @@ package rolebinding
 
 import (
 	"errors"
-	v1Role "github.com/KubeOperator/kubepi/service/model/v1/role"
-	"github.com/KubeOperator/kubepi/service/service/v1/common"
-	"github.com/asdine/storm/v3/q"
-	"github.com/google/uuid"
 	"time"
+
+	"github.com/asdine/storm/v3/q"
+	v1Role "github.com/godtool/kubeone/service/model/v1/role"
+	"github.com/godtool/kubeone/service/service/v1/common"
+	"github.com/google/uuid"
 )
 
 type Service interface {
@@ -18,8 +19,7 @@ type Service interface {
 }
 
 func NewService() Service {
-	return &service{
-	}
+	return &service{}
 }
 
 type service struct {

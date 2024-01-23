@@ -1,8 +1,8 @@
 package common
 
 import (
-	"github.com/KubeOperator/kubepi/service/server"
 	"github.com/asdine/storm/v3"
+	"github.com/godtool/kubeone/service/server"
 )
 
 type DBService interface {

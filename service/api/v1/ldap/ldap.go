@@ -1,8 +1,8 @@
 package ldap
 
 import (
-	"github.com/KubeOperator/kubepi/service/service/v1/common"
-	"github.com/KubeOperator/kubepi/service/service/v1/ldap"
+	"github.com/godtool/kubeone/service/service/v1/common"
+	"github.com/godtool/kubeone/service/service/v1/ldap"
 	"github.com/kataras/iris/v12"
 	"github.com/kataras/iris/v12/context"
 )

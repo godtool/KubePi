@@ -1,8 +1,8 @@
 package session
 
 import (
-	"github.com/KubeOperator/kubepi/service/server"
-	"github.com/KubeOperator/kubepi/service/service/v1/common"
+	"github.com/godtool/kubeone/service/server"
+	"github.com/godtool/kubeone/service/service/v1/common"
 	"github.com/kataras/iris/v12"
 	"github.com/kataras/iris/v12/context"
 )

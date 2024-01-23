@@ -1,7 +1,7 @@
 package chart
 
 import (
-	v1Chart "github.com/KubeOperator/kubepi/service/model/v1/chart"
+	v1Chart "github.com/godtool/kubeone/service/model/v1/chart"
 )
 
 type Repo struct {

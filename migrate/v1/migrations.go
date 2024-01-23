@@ -3,11 +3,11 @@ package v1
 import (
 	"time"
 
-	v1 "github.com/KubeOperator/kubepi/service/model/v1"
-	v1Role "github.com/KubeOperator/kubepi/service/model/v1/role"
-	v1User "github.com/KubeOperator/kubepi/service/model/v1/user"
-	"github.com/KubeOperator/kubepi/migrate/migrations"
 	"github.com/asdine/storm/v3"
+	"github.com/godtool/kubeone/migrate/migrations"
+	v1 "github.com/godtool/kubeone/service/model/v1"
+	v1Role "github.com/godtool/kubeone/service/model/v1/role"
+	v1User "github.com/godtool/kubeone/service/model/v1/user"
 	"github.com/google/uuid"
 	"golang.org/x/crypto/bcrypt"
 )

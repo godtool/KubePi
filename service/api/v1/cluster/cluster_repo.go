@@ -1,11 +1,11 @@
 package cluster
 
 import (
-	"github.com/KubeOperator/kubepi/service/model/v1/clusterrepo"
-	_ "github.com/KubeOperator/kubepi/service/model/v1/imagerepo"
-	"github.com/KubeOperator/kubepi/service/server"
-	"github.com/KubeOperator/kubepi/service/service/v1/common"
 	"github.com/asdine/storm/v3"
+	"github.com/godtool/kubeone/service/model/v1/clusterrepo"
+	_ "github.com/godtool/kubeone/service/model/v1/imagerepo"
+	"github.com/godtool/kubeone/service/server"
+	"github.com/godtool/kubeone/service/service/v1/common"
 	"github.com/kataras/iris/v12"
 	"github.com/kataras/iris/v12/context"
 )

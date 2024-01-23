@@ -1,11 +1,11 @@
 package cluster
 
 import (
-	v1Cluster "github.com/KubeOperator/kubepi/service/model/v1/cluster"
-	"github.com/KubeOperator/kubepi/service/service/v1/common"
-	"github.com/KubeOperator/kubepi/pkg/storm"
-	"github.com/KubeOperator/kubepi/pkg/util/lang"
 	"github.com/asdine/storm/v3/q"
+	"github.com/godtool/kubeone/pkg/storm"
+	"github.com/godtool/kubeone/pkg/util/lang"
+	v1Cluster "github.com/godtool/kubeone/service/model/v1/cluster"
+	"github.com/godtool/kubeone/service/service/v1/common"
 	"github.com/google/uuid"
 	"time"
 )

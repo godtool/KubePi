@@ -1,9 +1,9 @@
 package clusterapp
 
 import (
-	v1ClusterApp "github.com/KubeOperator/kubepi/service/model/v1/clusterapp"
-	"github.com/KubeOperator/kubepi/service/service/v1/common"
 	"github.com/asdine/storm/v3/q"
+	v1ClusterApp "github.com/godtool/kubeone/service/model/v1/clusterapp"
+	"github.com/godtool/kubeone/service/service/v1/common"
 	"github.com/google/uuid"
 	"time"
 )

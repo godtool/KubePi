@@ -3,14 +3,14 @@ package imagerepo
 import (
 	"errors"
 
-	"github.com/KubeOperator/kubepi/service/api/v1/commons"
-	v1ImageRepo "github.com/KubeOperator/kubepi/service/model/v1/imagerepo"
-	"github.com/KubeOperator/kubepi/service/server"
-	"github.com/KubeOperator/kubepi/service/service/v1/clusterrepo"
-	"github.com/KubeOperator/kubepi/service/service/v1/common"
-	"github.com/KubeOperator/kubepi/service/service/v1/imagerepo"
-	pkgV1 "github.com/KubeOperator/kubepi/pkg/api/v1"
 	"github.com/asdine/storm/v3"
+	pkgV1 "github.com/godtool/kubeone/pkg/api/v1"
+	"github.com/godtool/kubeone/service/api/v1/commons"
+	v1ImageRepo "github.com/godtool/kubeone/service/model/v1/imagerepo"
+	"github.com/godtool/kubeone/service/server"
+	"github.com/godtool/kubeone/service/service/v1/clusterrepo"
+	"github.com/godtool/kubeone/service/service/v1/common"
+	"github.com/godtool/kubeone/service/service/v1/imagerepo"
 	"github.com/kataras/iris/v12"
 	"github.com/kataras/iris/v12/context"
 )

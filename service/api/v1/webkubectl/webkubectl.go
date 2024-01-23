@@ -3,11 +3,11 @@ package webkubectl
 import (
 	"encoding/pem"
 	"fmt"
-	"github.com/KubeOperator/kubepi/service/api/v1/session"
-	"github.com/KubeOperator/kubepi/service/service/v1/cluster"
-	"github.com/KubeOperator/kubepi/service/service/v1/clusterbinding"
-	"github.com/KubeOperator/kubepi/service/service/v1/common"
-	"github.com/KubeOperator/kubepi/pkg/kubernetes"
+	"github.com/godtool/kubeone/pkg/kubernetes"
+	"github.com/godtool/kubeone/service/api/v1/session"
+	"github.com/godtool/kubeone/service/service/v1/cluster"
+	"github.com/godtool/kubeone/service/service/v1/clusterbinding"
+	"github.com/godtool/kubeone/service/service/v1/common"
 	"github.com/google/uuid"
 	"github.com/kataras/iris/v12"
 	"github.com/kataras/iris/v12/context"
@@ -114,7 +114,7 @@ func (h *Handler) CreateSession() iris.Handler {
 				return
 			}
 			cfg.CertData = rb.Certificate
-			cfg.KeyData =pem.EncodeToMemory(&pem.Block{Type: "RSA PRIVATE KEY", Bytes: c.PrivateKey})
+			cfg.KeyData = pem.EncodeToMemory(&pem.Block{Type: "RSA PRIVATE KEY", Bytes: c.PrivateKey})
 		}
 		sess.config = cfg
 		sess.User = profile.Name

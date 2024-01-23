@@ -1,4 +1,4 @@
-module github.com/KubeOperator/kubepi
+module github.com/godtool/kubeone
 
 go 1.20
 
