@@ -3,6 +3,7 @@ module github.com/godtool/kubeone
 go 1.20
 
 require (
+	github.com/aliyun/aliyun-oss-go-sdk v3.0.2+incompatible
 	github.com/asdine/storm/v3 v3.2.1
 	github.com/coreos/etcd v3.3.13+incompatible
 	github.com/docker/distribution v2.8.2+incompatible

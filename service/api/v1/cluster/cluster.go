@@ -151,17 +151,17 @@ func (h *Handler) CreateCluster() iris.Handler {
 		go func() {
 			req.Status.Phase = clusterStatusInitializing
 			if e := h.clusterService.Update(req.Name, &req.Cluster, common.DBOptions{}); e != nil {
-				server.Logger().Errorf("can not update cluster status %s", err)
+				server.Logger().Errorf("can not update cluster status %v", e)
 				return
 			}
 			if err := client.CreateDefaultClusterRoles(); err != nil {
 				req.Status.Phase = clusterStatusFailed
 				req.Status.Message = err.Error()
 				if e := h.clusterService.Update(req.Name, &req.Cluster, common.DBOptions{}); e != nil {
-					server.Logger().Errorf("can not update cluster status %s", err)
+					server.Logger().Errorf("can not update cluster status %v", e)
 					return
 				}
-				server.Logger().Errorf("can not init  built in clusterroles %s", err)
+				server.Logger().Errorf("can not init  built in clusterroles %v", err)
 				return
 			}
 			if !profile.IsAdministrator {
@@ -190,21 +190,21 @@ func (h *Handler) CreateCluster() iris.Handler {
 					req.Status.Phase = clusterStatusFailed
 					req.Status.Message = err.Error()
 					if e := h.clusterService.Update(req.Name, &req.Cluster, common.DBOptions{}); e != nil {
-						server.Logger().Errorf("can not update cluster status %s", err)
+						server.Logger().Errorf("can not update cluster status %v", e)
 						return
 					}
-					server.Logger().Errorf("can not create cluster user  %s", err)
+					server.Logger().Errorf("can not create cluster user  %v", err)
 					return
 				}
 				req.Status.Phase = clusterStatusCompleted
 				if e := h.clusterService.Update(req.Name, &req.Cluster, common.DBOptions{}); e != nil {
-					server.Logger().Errorf("can not update cluster status %s", err)
+					server.Logger().Errorf("can not update cluster status %v", e)
 					return
 				}
 			} else {
 				req.Status.Phase = clusterStatusCompleted
 				if e := h.clusterService.Update(req.Name, &req.Cluster, common.DBOptions{}); e != nil {
-					server.Logger().Errorf("can not update cluster status %s", err)
+					server.Logger().Errorf("can not update cluster status %v", e)
 					return
 				}
 			}

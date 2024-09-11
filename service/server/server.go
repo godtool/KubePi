@@ -3,11 +3,11 @@ package server
 import (
 	"embed"
 	"fmt"
+	"github.com/godtool/kubeone/service/service/v1/common"
 	"net/http"
 	"net/http/httputil"
 	"net/url"
 	"os"
-	"path"
 	"strings"
 	"time"
 
@@ -19,7 +19,6 @@ import (
 
 	"github.com/asdine/storm/v3"
 	"github.com/coreos/etcd/pkg/fileutil"
-	"github.com/godtool/kubeone/migrate"
 	"github.com/godtool/kubeone/pkg/file"
 	"github.com/godtool/kubeone/pkg/i18n"
 	"github.com/godtool/kubeone/service/config"
@@ -68,7 +67,7 @@ func WithCustomConfigFilePath(path string) Option {
 
 type KubePiServer struct {
 	app                  *iris.Application
-	db                   *storm.DB
+	db                   storm.Node
 	logger               *logrus.Logger
 	configCustomFilePath string
 	config               *v1Config.Config
@@ -116,11 +115,8 @@ func (e *KubePiServer) setUpDB() {
 			panic(fmt.Errorf("can not create database dir: %s message: %s", e.config.Spec.DB.Path, err))
 		}
 	}
-	d, err := storm.Open(path.Join(realDir, "kubepi.db"))
-	if err != nil {
-		panic(err)
-	}
-	e.db = d
+	dbSvr := &common.DefaultDBService{}
+	e.db = dbSvr.GetDB(common.DBOptions{})
 }
 
 func (e *KubePiServer) setUpRootRoute() {
@@ -249,8 +245,9 @@ func (e *KubePiServer) setUpErrHandler() {
 }
 
 func (e *KubePiServer) runMigrations() {
-	migrate.RunMigrate(e.db, e.logger)
+	//migrate.RunMigrate(e.db, e.logger)
 }
+
 func (e *KubePiServer) setWebkubectlProxy() {
 	handler := func(ctx *context.Context) {
 		p := ctx.Params().Get("p")
@@ -304,7 +301,7 @@ func (e *KubePiServer) bootstrap() *KubePiServer {
 
 var es *KubePiServer
 
-func DB() *storm.DB {
+func DB() storm.Node {
 	return es.db
 }
 

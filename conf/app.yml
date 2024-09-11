@@ -2,7 +2,7 @@ apiversion: v1
 kind: AppConfig
 spec:
   db:
-    path: /tmp/db
+    path: ./db
   jwt:
     key: 0qm0sd7cmjo5t9gidrzgctxzd2by3x7y
   server:
