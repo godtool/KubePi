@@ -3,7 +3,6 @@ package server
 import (
 	"embed"
 	"fmt"
-	"github.com/godtool/kubeone/service/service/v1/common"
 	"net/http"
 	"net/http/httputil"
 	"net/url"
@@ -11,10 +10,9 @@ import (
 	"strings"
 	"time"
 
+	v1 "github.com/godtool/kubeone/service/model/v1"
 	"github.com/iris-contrib/swagger/v12"
 	"github.com/iris-contrib/swagger/v12/swaggerFiles"
-
-	v1 "github.com/godtool/kubeone/service/model/v1"
 	"k8s.io/klog/v2"
 
 	"github.com/asdine/storm/v3"
@@ -23,6 +21,7 @@ import (
 	"github.com/godtool/kubeone/pkg/i18n"
 	"github.com/godtool/kubeone/service/config"
 	v1Config "github.com/godtool/kubeone/service/model/v1/config"
+	"github.com/godtool/kubeone/service/service/v1/common"
 	"github.com/kataras/iris/v12"
 	"github.com/kataras/iris/v12/context"
 	"github.com/kataras/iris/v12/sessions"
@@ -115,8 +114,6 @@ func (e *KubePiServer) setUpDB() {
 			panic(fmt.Errorf("can not create database dir: %s message: %s", e.config.Spec.DB.Path, err))
 		}
 	}
-	dbSvr := &common.DefaultDBService{}
-	e.db = dbSvr.GetDB(common.DBOptions{})
 }
 
 func (e *KubePiServer) setUpRootRoute() {
@@ -255,7 +252,7 @@ func (e *KubePiServer) setWebkubectlProxy() {
 			ctx.Request().URL.Path = strings.ReplaceAll(ctx.Request().URL.Path, "root", "")
 			ctx.Request().RequestURI = strings.ReplaceAll(ctx.Request().RequestURI, "root", "")
 		}
-		u, _ := url.Parse("http://localhost:8080")
+		u, _ := url.Parse("http://localhost:8000")
 		proxy := httputil.NewSingleHostReverseProxy(u)
 		proxy.ModifyResponse = func(resp *http.Response) error {
 			if resp.StatusCode == iris.StatusMovedPermanently {
@@ -302,7 +299,8 @@ func (e *KubePiServer) bootstrap() *KubePiServer {
 var es *KubePiServer
 
 func DB() storm.Node {
-	return es.db
+	svr := &common.DefaultDBService{}
+	return svr.GetDB(common.DBOptions{})
 }
 
 func Config() *v1Config.Config {

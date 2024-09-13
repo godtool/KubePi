@@ -4,6 +4,7 @@ import (
 	goContext "context"
 	"errors"
 	"fmt"
+	"log"
 	"strings"
 	"sync"
 	"time"
@@ -311,10 +312,11 @@ func (h *Handler) SearchClusters() iris.Handler {
 					}
 				}
 			}
+			
 			result = append(result, c)
 		}
 		if showExtra {
-			ctx1, cancel := goContext.WithTimeout(goContext.Background(), 2*time.Second)
+			ctx1, cancel := goContext.WithTimeout(goContext.Background(), 5*time.Second)
 			defer cancel()
 
 			wg := sync.WaitGroup{}
@@ -340,14 +342,17 @@ func (h *Handler) SearchClusters() iris.Handler {
 func getExtraClusterInfo(context goContext.Context, client kubernetes.Interface) (ExtraClusterInfo, error) {
 	err := client.Ping()
 	if err != nil {
+		log.Println("ping", err)
 		return ExtraClusterInfo{Health: false, Message: err.Error()}, err
 	}
 	c, err := client.Client()
 	if err != nil {
+		log.Println("client", err)
 		return ExtraClusterInfo{Health: false, Message: err.Error()}, err
 	}
 	nodesList, err := c.CoreV1().Nodes().List(context, metav1.ListOptions{})
 	if err != nil {
+		log.Println("list nodes ", err)
 		return ExtraClusterInfo{Health: true, Message: err.Error()}, err
 	}
 	nodes := nodesList.Items

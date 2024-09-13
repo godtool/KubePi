@@ -6,6 +6,7 @@ import (
 	"os"
 	"path"
 	"strings"
+	"time"
 
 	"github.com/asdine/storm/v3"
 )
@@ -14,6 +15,7 @@ type DBService interface {
 	GetDB(options DBOptions) storm.Node
 }
 
+var defaultDB *storm.DB
 var defaultStormNode storm.Node
 
 func SetDefaultStormNode(n storm.Node) {
@@ -61,14 +63,14 @@ func (d *DefaultDBService) GetDB(options DBOptions) storm.Node {
 			panic(err)
 		}
 	}
-	if defaultStormNode == nil {
+	if defaultDB == nil {
 		db, err := storm.Open(dbFile)
 		if err != nil {
 			panic(err)
 		}
-		defaultStormNode = db
+		defaultDB = db
 	}
-	return NewStormDBNodeWrapper(defaultStormNode)
+	return NewStormDBNodeWrapper(defaultDB)
 }
 
 type DBOptions struct {
@@ -88,7 +90,12 @@ func (s *StormDBNodeWrapper) Save(data interface{}) error {
 	if err != nil {
 		log.Printf("s.Node.Save [%v] failed.err:%v ", data, err)
 	}
+
 	if err == nil {
+		//defaultDB.Close()
+		//defaultDB = nil
+		// wait for db file ready
+		time.Sleep(3 * time.Second)
 		dbFile := path.Join("./", "kubeone.db")
 		endpoint := os.Getenv("OSS_ENDPOINT")
 		endpoint = strings.Replace(endpoint, "\\", "", -1)

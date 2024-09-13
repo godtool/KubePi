@@ -1,7 +1,7 @@
 import {get, patch} from "@/plugins/request"
 
 const clonesetUrl = (cluster_name) => {
-    return `/api/v1/proxy/${cluster_name}/k8s/apis/apps.kruise.io/v1alpha1/cloneset`
+    return `/api/v1/proxy/${cluster_name}/k8s/apis/apps.kruise.io/v1alpha1/clonesets`
 }
 const clonesetWithNsUrl = (cluster_name, namespaces) => {
     return `/api/v1/proxy/${cluster_name}/k8s/apis/apps.kruise.io/v1alpha1/namespaces/${namespaces}/cloneset`
