@@ -2,6 +2,7 @@ package v1
 
 import (
 	"bytes"
+	"encoding/base64"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -54,21 +55,59 @@ func (w WhiteList) In(name string) bool {
 	return false
 }
 
+type UserInfo struct {
+	DomainAccount string `json:"loginName"`  // 域账号
+	EmpID         string `json:"empId"`      // 工号，用户ID(empID)
+	Name          string `json:"lastName"`   // 真名（不唯一）
+	NickName      string `json:"nickNameCn"` // 花名,并非所有人都有
+	UserType      string `json:"userType"`   //员工类型：R,正式; O,外包; W,部门公共账号
+	HrStatus      string `json:"hrStatus"`   //在职状态：A,在职; I,离职
+	Available     string `json:"available"`  // 账号状态：T,有效; F,无效
+	Email         string `json:"emailAddr"`  // 常用邮箱
+	CellPhone     string `json:"cellPhone"`  // 手机号
+	Department    string `json:"depDesc"`    // 部门
+	AvatarURL     string `json:"avatarURL"`  // 头像地址
+	Token         string `json:"token"`      // 登录会话SSO_TOKEN，有效期7d，可以换取SSO_TICKET,可以用于心跳请求，心跳后原TOKEN在1分钟后失效
+	DisplayName   string // 显示名称（唯一），优先显示花名，然后真实姓名
+	PicURL        string // 头像
+}
+
 func authHandler() iris.Handler {
 	return func(ctx *context.Context) {
 		var p session.UserProfile
-		if ctx.GetHeader("Authorization") != "" {
-			pr := jwt.Get(ctx).(*session.UserProfile)
-			p = *pr
+		sdata := ctx.Request().Header.Get("X-INNER-AUTH")
+		if sdata != "" {
+			var userinfo UserInfo
+			bdata, err := base64.StdEncoding.DecodeString(sdata)
+			if err != nil {
+				ctx.Values().Set("message", err.Error())
+				ctx.StopWithStatus(iris.StatusUnauthorized)
+			}
 
+			err = json.Unmarshal(bdata, &userinfo)
+			if err != nil {
+				ctx.Values().Set("message", err.Error())
+				ctx.StopWithStatus(iris.StatusUnauthorized)
+			}
+			p.Name = userinfo.DisplayName
+			p.Email = userinfo.Email
+			p.IsAdministrator = true
+			p.NickName = userinfo.DisplayName
 		} else {
-			p = server.SessionMgr.Start(ctx).Get("profile").(session.UserProfile)
+			if ctx.GetHeader("Authorization") != "" {
+				pr := jwt.Get(ctx).(*session.UserProfile)
+				p = *pr
+
+			} else {
+				p = server.SessionMgr.Start(ctx).Get("profile").(session.UserProfile)
+			}
+			if p.Name == "" {
+				ctx.Values().Set("message", "please login")
+				ctx.StopWithStatus(iris.StatusUnauthorized)
+				return
+			}
 		}
-		if p.Name == "" {
-			ctx.Values().Set("message", "please login")
-			ctx.StopWithStatus(iris.StatusUnauthorized)
-			return
-		}
+
 		ctx.Values().Set("profile", p)
 		ctx.Next()
 	}
