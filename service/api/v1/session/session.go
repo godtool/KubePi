@@ -273,28 +273,32 @@ func (h *Handler) GetProfile() iris.Handler {
 			return
 		}
 
-		user, err := h.userService.GetByNameOrEmail(p.Name, common.DBOptions{})
-		if err != nil {
-			ctx.StatusCode(iris.StatusInternalServerError)
-			ctx.Values().Set("message", err.Error())
-			return
-		}
-		p = UserProfile{
-			Name:            user.Name,
-			NickName:        user.NickName,
-			Email:           user.Email,
-			Language:        user.Language,
-			IsAdministrator: user.IsAdmin,
-		}
-		if !user.IsAdmin {
-			permissions, err := h.aggregateResourcePermissions(p.Name)
+		sdata := ctx.Request().Header.Get("X-INNER-AUTH")
+		if sdata == "" {
+			user, err := h.userService.GetByNameOrEmail(p.Name, common.DBOptions{})
 			if err != nil {
 				ctx.StatusCode(iris.StatusInternalServerError)
 				ctx.Values().Set("message", err.Error())
 				return
 			}
-			p.ResourcePermissions = permissions
+			p = UserProfile{
+				Name:            user.Name,
+				NickName:        user.NickName,
+				Email:           user.Email,
+				Language:        user.Language,
+				IsAdministrator: user.IsAdmin,
+			}
+			if !user.IsAdmin {
+				permissions, err := h.aggregateResourcePermissions(p.Name)
+				if err != nil {
+					ctx.StatusCode(iris.StatusInternalServerError)
+					ctx.Values().Set("message", err.Error())
+					return
+				}
+				p.ResourcePermissions = permissions
+			}
 		}
+		
 		session.Set("profile", p)
 		ctx.StatusCode(iris.StatusOK)
 		ctx.Values().Set("data", p)

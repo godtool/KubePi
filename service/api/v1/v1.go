@@ -79,7 +79,7 @@ func authHandler() iris.Handler {
 		sdata := ctx.Request().Header.Get("X-INNER-AUTH")
 
 		log.Println(ctx.Request().Header)
-		
+
 		if sdata != "" {
 			var userinfo UserInfo
 			bdata, err := base64.StdEncoding.DecodeString(sdata)
@@ -97,6 +97,9 @@ func authHandler() iris.Handler {
 			p.Email = userinfo.Email
 			p.IsAdministrator = true
 			p.NickName = userinfo.DisplayName
+			p.Language = "zh-CN"
+			//p.Mfa.Enable = false
+			server.SessionMgr.Start(ctx).Set("profile", p)
 		} else {
 			if ctx.GetHeader("Authorization") != "" {
 				pr := jwt.Get(ctx).(*session.UserProfile)
