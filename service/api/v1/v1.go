@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"strings"
 
 	"github.com/godtool/kubeone/service/api/v1/mfa"
@@ -76,6 +77,9 @@ func authHandler() iris.Handler {
 	return func(ctx *context.Context) {
 		var p session.UserProfile
 		sdata := ctx.Request().Header.Get("X-INNER-AUTH")
+
+		log.Println(ctx.Request().Header)
+		
 		if sdata != "" {
 			var userinfo UserInfo
 			bdata, err := base64.StdEncoding.DecodeString(sdata)
