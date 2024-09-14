@@ -2,8 +2,11 @@ package session
 
 import (
 	goContext "context"
+	"encoding/base64"
+	"encoding/json"
 	"errors"
 	"fmt"
+	"log"
 	"strings"
 	"time"
 
@@ -54,8 +57,44 @@ func NewHandler() *Handler {
 	}
 }
 
+func InnerAuth(ctx *context.Context) *UserProfile {
+	var p UserProfile
+	sdata := ctx.Request().Header.Get("X-INNER-AUTH")
+	if sdata != "" {
+		log.Println(ctx.Request().URL.Path, " inner-auth found...")
+		var userinfo UserInfo
+		bdata, err := base64.StdEncoding.DecodeString(sdata)
+		if err != nil {
+			ctx.Values().Set("message", err.Error())
+			ctx.StopWithStatus(iris.StatusUnauthorized)
+		}
+
+		err = json.Unmarshal(bdata, &userinfo)
+		if err != nil {
+			ctx.Values().Set("message", err.Error())
+			ctx.StopWithStatus(iris.StatusUnauthorized)
+		}
+		p.Name = userinfo.DisplayName
+		p.Email = userinfo.Email
+		p.IsAdministrator = true
+		p.NickName = userinfo.DisplayName
+		p.Language = "zh-CN"
+		p.ResourcePermissions = make(map[string][]string)
+		return &p
+	}
+
+	return nil
+}
+
 func (h *Handler) IsLogin() iris.Handler {
 	return func(ctx *context.Context) {
+		tmpProfile := InnerAuth(ctx)
+		if tmpProfile != nil {
+			ctx.StatusCode(iris.StatusOK)
+			ctx.Values().Set("data", true)
+			return
+		}
+
 		session := server.SessionMgr.Start(ctx)
 		loginUser := session.Get("profile")
 		if loginUser == nil {
@@ -260,6 +299,14 @@ func (h *Handler) Logout() iris.Handler {
 func (h *Handler) GetProfile() iris.Handler {
 	return func(ctx *context.Context) {
 		session := server.SessionMgr.Start(ctx)
+		tmpProfile := InnerAuth(ctx)
+		if tmpProfile != nil {
+			session.Set("profile", *tmpProfile)
+			ctx.StatusCode(iris.StatusOK)
+			ctx.Values().Set("data", *tmpProfile)
+			return
+		}
+
 		loginUser := session.Get("profile")
 		if loginUser == nil {
 			ctx.StatusCode(iris.StatusUnauthorized)
@@ -273,32 +320,29 @@ func (h *Handler) GetProfile() iris.Handler {
 			return
 		}
 
-		sdata := ctx.Request().Header.Get("X-INNER-AUTH")
-		if sdata == "" {
-			user, err := h.userService.GetByNameOrEmail(p.Name, common.DBOptions{})
+		user, err := h.userService.GetByNameOrEmail(p.Name, common.DBOptions{})
+		if err != nil {
+			ctx.StatusCode(iris.StatusInternalServerError)
+			ctx.Values().Set("message", err.Error())
+			return
+		}
+		p = UserProfile{
+			Name:            user.Name,
+			NickName:        user.NickName,
+			Email:           user.Email,
+			Language:        user.Language,
+			IsAdministrator: user.IsAdmin,
+		}
+		if !user.IsAdmin {
+			permissions, err := h.aggregateResourcePermissions(p.Name)
 			if err != nil {
 				ctx.StatusCode(iris.StatusInternalServerError)
 				ctx.Values().Set("message", err.Error())
 				return
 			}
-			p = UserProfile{
-				Name:            user.Name,
-				NickName:        user.NickName,
-				Email:           user.Email,
-				Language:        user.Language,
-				IsAdministrator: user.IsAdmin,
-			}
-			if !user.IsAdmin {
-				permissions, err := h.aggregateResourcePermissions(p.Name)
-				if err != nil {
-					ctx.StatusCode(iris.StatusInternalServerError)
-					ctx.Values().Set("message", err.Error())
-					return
-				}
-				p.ResourcePermissions = permissions
-			}
+			p.ResourcePermissions = permissions
 		}
-		
+
 		session.Set("profile", p)
 		ctx.StatusCode(iris.StatusOK)
 		ctx.Values().Set("data", p)

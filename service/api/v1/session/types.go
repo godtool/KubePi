@@ -45,3 +45,20 @@ type Mfa struct {
 	Secret   string `json:"secret"`
 	Approved bool   `json:"approved"`
 }
+
+type UserInfo struct {
+	DomainAccount string `json:"loginName"`  // 域账号
+	EmpID         string `json:"empId"`      // 工号，用户ID(empID)
+	Name          string `json:"lastName"`   // 真名（不唯一）
+	NickName      string `json:"nickNameCn"` // 花名,并非所有人都有
+	UserType      string `json:"userType"`   //员工类型：R,正式; O,外包; W,部门公共账号
+	HrStatus      string `json:"hrStatus"`   //在职状态：A,在职; I,离职
+	Available     string `json:"available"`  // 账号状态：T,有效; F,无效
+	Email         string `json:"emailAddr"`  // 常用邮箱
+	CellPhone     string `json:"cellPhone"`  // 手机号
+	Department    string `json:"depDesc"`    // 部门
+	AvatarURL     string `json:"avatarURL"`  // 头像地址
+	Token         string `json:"token"`      // 登录会话SSO_TOKEN，有效期7d，可以换取SSO_TICKET,可以用于心跳请求，心跳后原TOKEN在1分钟后失效
+	DisplayName   string // 显示名称（唯一），优先显示花名，然后真实姓名
+	PicURL        string // 头像
+}
